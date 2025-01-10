@@ -1,0 +1,52 @@
+.courses_list__container {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	width: 100%;
+}
+
+.spinner {
+	height: 250px;
+	width: 100%;
+}
+
+.error {
+	align-items: center;
+	color: var(--color-error-red);
+	display: flex;
+	font-size: var(--font-size-title-large);
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+}
+
+.not_found__container {
+	margin: 0 auto;
+}
+
+.filter_items_and_title {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+}
+
+.courses_results {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+	max-width: 1040px;
+}
+
+.courses_list {
+	display: flex;
+	justify-content: start;
+	flex-direction: column;
+	gap: 24px;
+}
+
+@media (max-width: 1280px) {
+	.courses_list {
+		padding-left: 0;
+		justify-content: center;
+	}
+}

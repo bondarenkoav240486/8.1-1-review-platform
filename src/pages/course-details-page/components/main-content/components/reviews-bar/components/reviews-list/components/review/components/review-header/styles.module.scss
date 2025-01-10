@@ -1,0 +1,105 @@
+.review__header {
+	align-items: center;
+	display: grid;
+	gap: 8px;
+	grid-template-areas: "user verif rating";
+	grid-template-columns: auto 1fr auto;
+	min-height: 60px;
+	width: 100%;
+}
+
+.review__date {
+	color: var(--color-grey-460);
+	font-family: var(--font-family-main);
+	font-size: var(--font-size-main-text);
+	font-weight: var(--font-weight-text);
+	line-height: 140%;
+}
+
+.review__rating-block {
+	display: flex;
+	grid-area: rating;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: end;
+	height: 56px;
+}
+
+.review__user-block {
+	align-items: center;
+	display: grid;
+	gap: 5px 12px;
+	grid-area: user;
+	grid-template-columns: 60px auto;
+	height: 100%;
+}
+
+.review__user-picture {
+	align-self: flex-start;
+	height: 60px;
+	width: 60px;
+}
+
+.review__name-block {
+	height: 100%;
+	padding: 5px 0;
+}
+
+.review__user-name {
+	font-family: var(--font-family-main);
+	font-size: var(--font-size-title-large);
+	font-weight: var(--font-weight-bold);
+	line-height: 140%;
+	margin-bottom: 6px;
+}
+
+.review__user-role {
+	color: var(--color-grey-400);
+	font-family: var(--font-family-main);
+	font-size: var(--font-size-main-text);
+	font-weight: var(--font-weight-text);
+}
+
+.review__verification-block {
+	align-items: flex-start;
+	align-self: flex-start;
+	color: var(--color-icon-green);
+	display: flex;
+	grid-area: verif;
+	padding-top: 5px;
+}
+
+.review__verification-icon {
+	height: 24px;
+	margin-right: 7px;
+	width: 24px;
+}
+
+.review__verification-text {
+	align-items: center;
+	display: flex;
+	font-family: var(--font-family-roboto);
+	font-size: var(--font-size-main-text);
+	font-weight: var(--font-weight-text);
+	height: 24px;
+	line-height: 100%;
+}
+
+@media (max-width: 768px) {
+	.review__header {
+		grid-template-areas: "user rating" "verif verif";
+		grid-template-columns: fit-content(80%) auto;
+		min-height: 100px;
+	}
+
+	.review__rating-block {
+		height: 49px;
+	}
+}
+
+@media (max-width: 370px) {
+	.review__header {
+		grid-template-areas: "user" "rating" "verif";
+		grid-template-columns: auto;
+	}
+}

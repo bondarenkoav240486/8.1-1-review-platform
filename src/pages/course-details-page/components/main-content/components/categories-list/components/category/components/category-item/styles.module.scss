@@ -1,0 +1,12 @@
+.category_item {
+	color: var(--color-blue-icons);
+	font-size: var(--font-size-main-text);
+	font-weight: var(--font-weight-text);
+	list-style-type: disc;
+	margin-left: 12px;
+	text-decoration: underline;
+}
+
+.category_item::marker {
+	font-size: 14px;
+}

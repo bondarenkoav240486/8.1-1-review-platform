@@ -1,0 +1,39 @@
+.menu {
+	white-space: nowrap;
+	overflow: auto;          
+  scrollbar-width: none;  
+  -ms-overflow-style: none; 
+}
+
+.menu_list {
+	display: flex;
+	gap: 20px;
+}
+
+.menu_item {
+	font-size: var(--font-size-title-large);
+	line-height: 1.4;
+	font-weight: var(--font-weight-bold);
+	color: var(--color-grey-500);
+	display: block;
+	padding: 24px;
+	cursor: pointer;
+}
+
+.menu_item:hover {
+	color: var(--color-button-blue);
+}
+
+.item_active {
+	color: var(--color-black);
+	position: relative;
+	border-bottom: 4px solid  var(--color-grey-950);
+}
+
+@media (max-width: 768px) {
+	.menu_item {
+		font-size: var(	--font-size-title-h5);
+		line-height: 22px;
+		padding: 16px;
+	}
+}

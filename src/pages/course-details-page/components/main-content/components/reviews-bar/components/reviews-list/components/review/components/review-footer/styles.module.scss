@@ -1,0 +1,47 @@
+.review__footer {
+	display: flex;
+	font-family: var(--font-family-main);
+	font-size: var(--font-size-main-text);
+	font-weight: var(--font-weight-text);
+	justify-content: space-between;
+}
+
+.footer__icon {
+	color: var(--color-grey-950);
+	height: 24px;
+	margin-right: 8px;
+	width: 24px;
+}
+
+.footer__like-icon {
+	fill: transparent;
+	transition: fill 0.8s;
+
+	&:hover {
+		fill: var(--color-yellow-200);
+	}
+}
+
+.footer__text {
+	color: var(--color-grey-400);
+}
+
+.footer__text_hoverable {
+	transition: color 0.8s;
+	&:hover {
+		color: var(--color-grey-950);
+	}
+}
+
+.footer__button {
+	padding: 8px 1px;
+}
+
+.footer__button-container {
+	display: flex;
+	gap: 20px;
+}
+
+.liked {
+	fill: var(--color-yellow-500);
+}
