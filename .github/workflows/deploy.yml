@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       # 1. Чекаут репозиторію
@@ -34,30 +34,30 @@ jobs:
 
       # 5. Сборка Docker образу
       - name: Docker Build
-        run: docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ env.ACR_TAG }} .
+        run: docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/81acrname1:latest .
 
         env:
-          ACR_REPO: "your-repo-name"   # Замість this оберіть назву вашого репозиторія в ACR
-          ACR_TAG: "latest"            # Тег для Docker образу, наприклад, v1, latest
+          ACR_REPO: "81acrname1"   # Назва вашого репозиторія в ACR
+          ACR_TAG: "latest"         # Тег для Docker образу
 
       # 6. Логін в ACR і пуш Docker образу
       - name: Docker Push
         run: |
-          az acr login --name ${{ secrets.ACR_NAME }}
-          docker push ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ env.ACR_TAG }}
+          az acr login --name 81acrname1
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/81acrname1:latest
 
       # 7. Налаштування Web App для роботи з Docker
       - name: Configure Web App for Docker
         run: |
           az webapp config container set \
-            --name ${{ secrets.WEBAPP_NAME }} \
-            --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --docker-custom-image-name "${{ secrets.ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ env.ACR_TAG }}" \
+            --name my-ci-cd-app \
+            --resource-group bondarenko-av24-resource-group \
+            --docker-custom-image-name "${{ secrets.ACR_LOGIN_SERVER }}/81acrname1:latest" \
             --docker-registry-server-url "https://${{ secrets.ACR_LOGIN_SERVER }}" \
-            --docker-registry-server-user ${{ secrets.ACR_USERNAME }} \
+            --docker-registry-server-user 81acrname1 \
             --docker-registry-server-password ${{ secrets.ACR_PASSWORD }}
 
       # 8. Рестарт Web App для застосування нового образу
       - name: Restart Web App
         run: |
-          az webapp restart --name ${{ secrets.WEBAPP_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP }}
+          az webapp restart --name my-ci-cd-app --resource-group bondarenko-av24-resource-group
