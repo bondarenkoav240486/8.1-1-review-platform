@@ -40,6 +40,13 @@ jobs:
           ACR_REPO: "81-docker-image"   # Назва вашого репозиторія в ACR
           ACR_TAG: "v1"         # Тег для Docker образу
 
+          run: |
+          
+           echo "Login Server: ${{ secrets.ACR_LOGIN_SERVER }}"
+          echo "Repository: ${{ env.ACR_REPO }}"
+          echo "Tag: ${{ env.ACR_TAG }}"
+          
+
       # 6. Логін в ACR і пуш Docker образу
       - name: Docker Push
         run: |
