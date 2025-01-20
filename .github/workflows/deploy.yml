@@ -9,6 +9,11 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-22.04
 
+    env:
+      ACR_LOGIN_SERVER: ${{ secrets.ACR_LOGIN_SERVER }}   # Azure Container Registry login server
+      ACR_REPO: "81-docker-image"                          # Репозиторій в ACR
+      ACR_TAG: "v1"
+
     steps:
       # 1. Чекаут репозиторію
       - name: Checkout Code
