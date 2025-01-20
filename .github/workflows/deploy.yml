@@ -34,7 +34,7 @@ jobs:
 
       # 5. Сборка Docker образу
       - name: Docker Build
-       run: |
+        run: |
           echo "Building image: ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ env.ACR_TAG }}"
           docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ env.ACR_TAG }} .
 
