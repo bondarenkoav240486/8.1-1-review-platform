@@ -37,14 +37,14 @@ jobs:
         run: docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ env.ACR_TAG }} .
 
         env:
-          ACR_REPO: "81acrname1"   # Назва вашого репозиторія в ACR
-          ACR_TAG: "latest"         # Тег для Docker образу
+          ACR_REPO: "81-docker-image"   # Назва вашого репозиторія в ACR
+          ACR_TAG: "v1"         # Тег для Docker образу
 
       # 6. Логін в ACR і пуш Docker образу
       - name: Docker Push
         run: |
           az acr login --name 81acrname1
-          docker push ${{ secrets.ACR_LOGIN_SERVER }}/81acrname1:latest
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ env.ACR_TAG }}
 
       # 7. Налаштування Web App для роботи з Docker
       - name: Configure Web App for Docker
