@@ -34,7 +34,7 @@ jobs:
 
       # 5. Сборка Docker образу
       - name: Docker Build
-        run: docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/81acrname1:latest .
+        run: docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ env.ACR_TAG }} .
 
         env:
           ACR_REPO: "81acrname1"   # Назва вашого репозиторія в ACR
