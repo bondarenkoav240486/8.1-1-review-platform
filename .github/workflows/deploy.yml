@@ -1,53 +1,53 @@
-name: Build and Deploy Docker App to Azure
+name: Build and Deploy to Azure
 
 on:
   push:
     branches:
-      - main  # Тригер на пуш в основну гілку (можна змінити на іншу)
+      - main  # Тригер для запуску CI/CD при пуші в main гілку
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Чекаут коду з репозиторію
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # 1. Чекаут репозиторію
+      - name: Checkout Code
+        uses: actions/checkout@v2
 
-      # 2. Налаштування Node.js для зборки (якщо необхідно)
+      # 2. Налаштування Node.js
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: '18'
 
-      # 3. Встановлення залежностей і збірка
-      - name: Install dependencies and build
+      # 3. Встановлення залежностей та збірка
+      - name: Install and Build
         run: |
           npm install
           npm run build
 
-      # 4. Логін в Azure за допомогою Azure Service Principal
+      # 4. Логін в Azure
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # 5. Сборка Docker-образа
-      - name: Build Docker image
+      # 5. Сборка Docker образу
+      - name: Docker Build
         run: docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ env.ACR_TAG }} .
 
         env:
-          ACR_REPO: "your-repo-name"   # Назва репозиторію в ACR
-          ACR_TAG: "latest"            # Тег для Docker образу (можна використовувати SHA або інші значення)
+          ACR_REPO: "your-repo-name"   # Замість this оберіть назву вашого репозиторія в ACR
+          ACR_TAG: "latest"            # Тег для Docker образу, наприклад, v1, latest
 
-      # 6. Логін в Azure Container Registry та пуш Docker-образа
+      # 6. Логін в ACR і пуш Docker образу
       - name: Docker Push
         run: |
           az acr login --name ${{ secrets.ACR_NAME }}
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ env.ACR_TAG }}
 
-      # 7. Налаштування Web App для використання Docker-образа
-      - name: Configure Azure Web App for Docker
+      # 7. Налаштування Web App для роботи з Docker
+      - name: Configure Web App for Docker
         run: |
           az webapp config container set \
             --name ${{ secrets.WEBAPP_NAME }} \
@@ -57,9 +57,7 @@ jobs:
             --docker-registry-server-user ${{ secrets.ACR_USERNAME }} \
             --docker-registry-server-password ${{ secrets.ACR_PASSWORD }}
 
-      # 8. Рестарт Web App для застосування нового Docker-образа
-      - name: Restart Azure Web App
+      # 8. Рестарт Web App для застосування нового образу
+      - name: Restart Web App
         run: |
-          az webapp restart \
-            --name ${{ secrets.WEBAPP_NAME }} \
-            --resource-group ${{ secrets.RESOURCE_GROUP }}
+          az webapp restart --name ${{ secrets.WEBAPP_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP }}
