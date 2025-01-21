@@ -61,14 +61,14 @@ jobs:
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ env.ACR_TAG }}
 
       # 7. Налаштування Web App для роботи з Docker
-      - name: Configure Web App for Docker
+      - name: Configure Web App Container
         run: |
           az webapp config container set \
-            --name my-ci-cd-app \
-            --resource-group bondarenko-av24-resource-group \
-            --docker-custom-image-name "${{ secrets.ACR_LOGIN_SERVER }}/81acrname1:latest" \
+            --name ${{ secrets.WEBAPP_NAME }} \
+            --resource-group ${{ secrets.RESOURCE_GROUP }} \
+            --docker-custom-image-name "${{ secrets.ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ env.ACR_TAG }}" \
             --docker-registry-server-url "https://${{ secrets.ACR_LOGIN_SERVER }}" \
-            --docker-registry-server-user 81acrname1 \
+            --docker-registry-server-user ${{ secrets.ACR_USERNAME }} \
             --docker-registry-server-password ${{ secrets.ACR_PASSWORD }}
 
       # 8. Рестарт Web App для застосування нового образу
