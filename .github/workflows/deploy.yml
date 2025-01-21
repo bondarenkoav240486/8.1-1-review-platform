@@ -53,7 +53,7 @@ jobs:
       # 6. Логін в ACR і пуш Docker образу
       - name: Docker Push
         run: |
-          az acr login --name 81acrname1
+          az acr login --name ${{ secrets.ACR_NAME }}
           echo "Login Server: ${{ secrets.ACR_LOGIN_SERVER }}"
           echo "Repository: ${{ env.ACR_REPO }}"
           echo "Tag: ${{ env.ACR_TAG }}"
