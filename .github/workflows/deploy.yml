@@ -74,4 +74,6 @@ jobs:
       # 8. Рестарт Web App для застосування нового образу
       - name: Restart Web App
         run: |
-          az webapp restart --name my-ci-cd-app --resource-group bondarenko-av24-resource-group
+          az webapp restart \
+            --name ${{ secrets.WEBAPP_NAME }} \
+            --resource-group ${{ secrets.RESOURCE_GROUP }}
