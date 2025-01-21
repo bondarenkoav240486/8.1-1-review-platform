@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      ACR_LOGIN_SERVER: ${{ secrets.ACR_LOGIN_SERVER }}   # Azure Container Registry login server
+      # ACR_LOGIN_SERVER: ${{ secrets.ACR_LOGIN_SERVER }}   # Azure Container Registry login server
       ACR_REPO: "81-docker-image"                          # Репозиторій в ACR
       ACR_TAG: "v1"
 
